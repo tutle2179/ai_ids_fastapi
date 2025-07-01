@@ -79,8 +79,35 @@ streamlit run streamlit_dashboard.py
 python test_attack_packet.py
 ```
 
+### 7. 예측예시
+```bash
+수집된 패킷 특징: [0, 6, 164, 0, 0, 0, 0, 0]
+[✓] 예측 결과: attack (신뢰도: 0.5183)
+```
 ---
 
+## 🖥️ Streamlit 대시보드 주요 기능
+
+실시간 탐지 결과를 웹 대시보드 형태로 시각화합니다.  
+`packet_logs.csv`에 기록된 예측 결과를 기반으로 아래 기능을 제공합니다.
+
+###  주요 기능
+- 실시간 패킷 테이블 (최신 100개 표시)
+- 전체 탐지 수 / 공격 수 / 공격 비율 실시간 표시
+- 공격/정상 비율 차트 (Bar Chart)
+- 공격 패킷만 보기 필터
+- 날짜 + 시간 필터로 특정 구간 조회 가능
+- 자동 새로고침 on/off 토글
+
+###  대시보드 예시 화면
+
+![대시보드 화면](screenshots/dashboard_main.png)
+> 실시간으로 예측된 패킷 결과를 표와 그래프로 확인할 수 있습니다.
+
+![필터 옵션](screenshots/dashboard_sidebar.png)
+> 날짜/시간 선택, 공격 패킷 필터, 자동 새로고침 토글 기능도 지원됩니다.
+
+---
 ##  향후 확장 방향
 
 -  실전 트래픽 수집 (Wireshark 수준의 캡처)
@@ -90,5 +117,3 @@ python test_attack_packet.py
 -  다중 클래스 분류 (DoS, Probe, R2L, U2R 등)
 
 ---
-
-
