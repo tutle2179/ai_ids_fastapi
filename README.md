@@ -101,8 +101,11 @@ python test_attack_packet.py
 
 ###  대시보드 예시 화면
 
-![대시보드 화면](screenshots/dashboard_main.png)
+![대시보드 화면](screenshots/dashboard_1.png)
 > 실시간으로 예측된 패킷 결과를 표와 그래프로 확인할 수 있습니다.
+
+![대시보드 화면](screenshots/dashboard_2.png)
+> 실시간으로 예측된 패킷 결과를 표와 그래프로 확인할 수 있습니다.(최신화)
 
 ![필터 옵션](screenshots/dashboard_sidebar.png)
 > 날짜/시간 선택, 공격 패킷 필터, 자동 새로고침 토글 기능도 지원됩니다.

@@ -5,14 +5,14 @@ import os
 from datetime import datetime, timedelta
 
 LOG_FILE = "packet_logs.csv"
-REFRESH_INTERVAL = 3  # 자동 새로고침 간격 (초)
+REFRESH_INTERVAL = 1.5  # 자동 새로고침 간격 (초)
 
 st.set_page_config(page_title="AI 침입 탐지 대시보드", layout="wide")
 
 st.title("🔒 AI 기반 침입 탐지 대시보드")
 st.caption("실시간 네트워크 패킷을 분석하여 이상 여부를 시각화합니다.")
 
-@st.cache_data(ttl=1)
+# @st.cache_data(ttl=1)
 def load_data():
     if os.path.exists(LOG_FILE):
         df = pd.read_csv(LOG_FILE)

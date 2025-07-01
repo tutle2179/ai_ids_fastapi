@@ -25,7 +25,7 @@ logging.basicConfig(
     ]
 )
 
-API_URL = "http://localhost:8010/predict"
+API_URL = os.getenv("API_URL", "http://localhost:8010/predict")
 
 # ===================== 인터페이스 자동 탐색 함수 =====================
 def auto_select_interface():
@@ -99,16 +99,30 @@ def predict_packet(features):
         response = requests.post(API_URL, json=features)
         if response.status_code == 200:
             result = response.json()
-            pred = result.get("prediction", "unknown")
+            raw_pred = result.get("prediction", "unknown")
             conf = result.get("confidence", 0.0)
-            logging.info(f"[✓] 예측 결과: {pred} (신뢰도: {conf})")
-            log_to_csv(features, pred)
+
+            # 예측값이 문자열이면 그대로, 숫자면 매핑
+            if isinstance(raw_pred, str) and raw_pred in {"normal", "attack"}:
+                pred_label = raw_pred
+            else:
+                try:
+                    pred_index = int(float(raw_pred))
+                    label_map = {0: "normal", 1: "attack"}
+                    pred_label = label_map.get(pred_index, "unknown")
+                except:
+                    pred_label = "unknown"
+
+            logging.info(f"[✓] 예측 결과: {pred_label} (신뢰도: {conf})")
+            log_to_csv(features, pred_label)
         else:
             logging.error(f"[predict_packet] 응답 오류: {response.status_code}")
             log_to_csv(features, "fail")
     except Exception as e:
         logging.error(f"[predict_packet] 예측 실패: {e}")
         log_to_csv(features, "fail")
+
+
 
 # ===================== 패킷 처리 =====================
 def process_packet(pkt):
