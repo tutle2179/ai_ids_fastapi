@@ -1,6 +1,8 @@
 venv/
 __pycache__/
 *.pyc
+logs/
+*.log
 
 # 모델, 데이터
 /models/
@@ -8,3 +10,7 @@ __pycache__/
 /data/
 *.txt
 *.csv
+
+# .gitignore
+.env
+.env.*
