@@ -59,9 +59,9 @@ streamlit run streamlit_dashboard.py
 # (선택) 테스트 공격 패킷 전송
 python test_attack_packet.py
 
+--- 
 
-
-모델 학습 방법
+## 모델 학습 방법
 
 cd train
 python train_model.py
@@ -69,7 +69,9 @@ python train_model.py
 데이터셋: NSL-KDD (KDDTest+.txt)
 사용 Feature: duration, protocol_type, src_bytes, dst_bytes, flag, land, wrong_fragment, urgent
 
-향후발전방향
+---
+
+## 향후발전방향
 
 - 실 트래픽 기반 감지를 위한 클라우드 서버 연동
 - 실시간 패킷 캡처 고도화 (eth0, ens3 등 인터페이스 지정)
@@ -80,6 +82,7 @@ python train_model.py
 - FastAPI, Streamlit, Scapy
 - Scikit-learn, Pandas, joblib
 
+---
 
 ##  3. 마무리 점검 리스트
 
