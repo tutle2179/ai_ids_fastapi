@@ -1,100 +1,93 @@
 #  AI 기반 침입 탐지 시스템 (AI_IDS_FASTAPI)
 
-FastAPI + Scapy + Streamlit을 기반으로 실시간 네트워크 침입 탐지 및 시각화를 구현한 프로젝트입니다.
+**FastAPI + Scapy + Streamlit**을 기반으로 실시간 네트워크 침입 탐지 및 시각화를 구현한 프로젝트입니다.
 
 ---
 
 ##  주요 기능
-- FastAPI 기반 `/predict` API
-- Scapy로 실시간 패킷 수집 및 AI 예측
-- Streamlit으로 탐지 결과 실시간 시각화
-- 공격 패킷 테스트 시뮬레이션 지원
+
+-  FastAPI 기반 `/predict` API 제공  
+-  Scapy로 실시간 패킷 수집 및 특징 추출  
+-  Streamlit으로 탐지 결과 실시간 시각화  
+-  테스트 패킷 전송을 통한 공격 시뮬레이션 기능  
 
 ---
 
 ##  프로젝트 구조
 
 ```
-ai_ids_fastapi/
-│
+AI_IDS_FASTAPI/
 ├── app/
-│ ├── main.py
-│ ├── model.py
-│ ├── schema.py
-│ └── utils.py
-├── packet_sniffer.py
-├── streamlit_dashboard.py
-├── test_attack_packet.py
-├── train/
-│ ├── train_model.py
-├── models/
-│ ├── ids_model.pkl
-│ └── scaler.pkl
+│   ├── main.py               # FastAPI 서버 엔트리포인트
+│   ├── model.py              # 모델 로딩 및 예측 함수
+│   ├── schema.py             # FastAPI용 데이터 스키마
+│   └── utils.py              # 유틸 함수 모음
 ├── data/
-│ └── KDDTest+.txt
-├── packet_logs.csv
-├── requirements.txt
+│   └── KDDTest+.txt          # 학습용 데이터셋 (NSL-KDD)
+├── models/
+│   ├── ids_model.pkl         # 학습된 RandomForest 모델
+│   └── scaler.pkl            # 학습에 사용된 Scaler
+├── train/
+│   └── train_model.py        # 모델 학습 스크립트 (8개 feature 버전)
+├── packet_sniffer.py         # 실시간 패킷 수집 및 예측
+├── test_attack_packet.py     # 테스트용 공격 패킷 시뮬레이션
+├── streamlit_dashboard.py    # 실시간 Streamlit 대시보드
+├── packet_logs.csv           # 탐지 로그 저장 CSV
+├── requirements.txt          # 설치 라이브러리 목록
+├── Dockerfile                # (선택) 배포용 도커파일
+└── README.md                 # 이 문서
 ```
+
 ---
 
 ##  설치 및 실행 방법
 
+### 1. 가상환경 생성 및 활성화
+
 ```bash
-# 1. 가상환경 설치
 python -m venv venv
-source venv/Scripts/activate
+source venv/Scripts/activate   # Windows 기준
+```
 
-# 2. 라이브러리 설치
+### 2. 라이브러리 설치
+
+```bash
 pip install -r requirements.txt
+```
 
-# 3. FastAPI 서버 실행
+### 3. FastAPI 서버 실행
+
+```bash
 uvicorn app.main:app --reload --port 8010
+```
 
-# 4. 실시간 패킷 수집 실행
+### 4. 실시간 패킷 수집 실행
+
+```bash
 python packet_sniffer.py
+```
 
-# 5. Streamlit 대시보드 실행
+### 5. Streamlit 대시보드 실행
+
+```bash
 streamlit run streamlit_dashboard.py
+```
 
-# (선택) 테스트 공격 패킷 전송
+### 6. 테스트 공격 패킷 전송 (선택)
+
+```bash
 python test_attack_packet.py
-
---- 
-
-## 모델 학습 방법
-
-cd train
-python train_model.py
-
-데이터셋: NSL-KDD (KDDTest+.txt)
-사용 Feature: duration, protocol_type, src_bytes, dst_bytes, flag, land, wrong_fragment, urgent
+```
 
 ---
 
-## 향후발전방향
+##  향후 확장 방향
 
-- 실 트래픽 기반 감지를 위한 클라우드 서버 연동
-- 실시간 패킷 캡처 고도화 (eth0, ens3 등 인터페이스 지정)
-- HTTPS 서버 트래픽 디코딩 및 분석
-
-기술 스택
-
-- FastAPI, Streamlit, Scapy
-- Scikit-learn, Pandas, joblib
-
----
-
-##  3. 마무리 점검 리스트
-
-| 항목 | 상태 | 확인사항 |
-|------|------|----------|
-| ✅ FastAPI `/predict` 정상 작동 | 완료 | 포트 8010에서 정상 응답 |
-| ✅ packet_sniffer.py 실시간 감지 | 완료 | 정상 예측 응답 출력 확인 |
-| ✅ streamlit_dashboard.py 시각화 | 완료 | 공격/정상 비율 막대차트 확인 |
-| ✅ 모델 학습 코드 정상 작동 | 완료 | 8개 feature 기반 학습 완료 |
-| ✅ README 작성 | 진행중 | 템플릿 적용 및 커스텀 필요 |
-| 🔄 requirements.txt 최신화 | 필요 | `pip freeze > requirements.txt` 필요 |
-| 🔄 `train/models` → `models` 경로 정비 | 필요 | 모델 저장 위치 정리 |
+-  실전 트래픽 수집 (Wireshark 수준의 캡처)
+-  HTTPS 웹사이트 로그 분석 및 IDS 적용
+-  클라우드 배포 및 실시간 대시보드 호스팅
+-  anomaly detection 기반 탐지 강화 (unsupervised)
+-  다중 클래스 분류 (DoS, Probe, R2L, U2R 등)
 
 ---
 
