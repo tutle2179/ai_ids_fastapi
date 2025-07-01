@@ -15,7 +15,8 @@ FastAPI + Scapy + Streamlit을 기반으로 실시간 네트워크 침입 탐지
 ##  프로젝트 구조
 
 ```
-
+ai_ids_fastapi/
+│
 ├── app/
 │ ├── main.py
 │ ├── model.py
