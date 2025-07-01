@@ -86,7 +86,7 @@ python test_attack_packet.py
 ```
 ---
 
-## 🖥️ Streamlit 대시보드 주요 기능
+##  Streamlit 대시보드 주요 기능
 
 실시간 탐지 결과를 웹 대시보드 형태로 시각화합니다.  
 `packet_logs.csv`에 기록된 예측 결과를 기반으로 아래 기능을 제공합니다.
