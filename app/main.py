@@ -4,8 +4,8 @@ from app.model import predict_intrusion
 import inspect
 import app.schema
 
-print("✅ PacketData 클래스 실제 경로:", inspect.getfile(app.schema))
-print("✅ PacketData 클래스 내용:", app.schema.PacketData.schema())
+print(" PacketData 클래스 실제 경로:", inspect.getfile(app.schema))
+print(" PacketData 클래스 내용:", app.schema.PacketData.schema())
 
 app = FastAPI(
     title="AI 기반 침입 탐지 API",

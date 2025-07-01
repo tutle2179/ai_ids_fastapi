@@ -7,7 +7,7 @@ from datetime import datetime
 
 API_URL = "http://localhost:8010/predict"
 LOG_FILE = "packet_logs.csv"
-print("🔗 요청 전송 대상 URL:", API_URL)
+print(" 요청 전송 대상 URL:", API_URL)
 
 # 로그 파일 없으면 헤더 생성
 if not os.path.exists(LOG_FILE):
@@ -49,9 +49,9 @@ def send_to_api(features):
     try:
         feature_keys = ["duration", "protocol_type", "src_bytes", "dst_bytes",
                         "flag", "land", "wrong_fragment", "urgent"]
-        payload = dict(zip(feature_keys, features))  # ✅ 리스트 → 딕셔너리 변환
+        payload = dict(zip(feature_keys, features))  #  리스트 → 딕셔너리 변환
 
-        response = requests.post(API_URL, json=payload)  # ✅ 수정된 전송 방식
+        response = requests.post(API_URL, json=payload)  #  수정된 전송 방식
         result = response.json()
 
         prediction = result.get("prediction", "None")
@@ -65,13 +65,13 @@ def send_to_api(features):
 def process_packet(packet):
     features = extract_features(packet)
     if features:
-        print(f"📦 수집된 패킷 특징: {features}")
+        print(f" 수집된 패킷 특징: {features}")
         send_to_api(features)
 
 if __name__ == "__main__":
-    print("🟢 실시간 패킷 수집 시작! (중지하려면 Ctrl+C)")
+    print(" 실시간 패킷 수집 시작! (중지하려면 Ctrl+C)")
 
-    # 🔥 수정된 테스트 요청 → 위에서 정의한 API_URL 사용
+    #  수정된 테스트 요청 → 위에서 정의한 API_URL 사용
     test_packet = {
         "duration": 0,
         "protocol_type": 6,
@@ -83,8 +83,8 @@ if __name__ == "__main__":
         "urgent": 0
     }
 
-    response = requests.post(API_URL, json=test_packet)  # ✅ 여기에 API_URL 사용!
-    print("✅ 예측 응답:", response.text)
+    response = requests.post(API_URL, json=test_packet)  #  여기에 API_URL 사용!
+    print(" 예측 응답:", response.text)
 
     # sniff 재시작
     scapy.sniff(prn=process_packet, store=False)

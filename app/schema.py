@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-print("✅ [schema.py] 이 파일이 FastAPI에 의해 로드됨")
+print(" [schema.py] 이 파일이 FastAPI에 의해 로드됨")
 class PacketData(BaseModel):
     duration: float
     protocol_type: float

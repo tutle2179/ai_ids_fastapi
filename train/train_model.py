@@ -26,7 +26,7 @@ df = df.drop("difficulty_level", axis=1)
 # 3. 라벨 이진화
 df["label"] = df["label"].apply(lambda x: "normal" if x == "normal" else "attack")
 
-# ✅ 4. 사용할 8개 feature만 추출
+#  4. 사용할 8개 feature만 추출
 features = [
     "duration", "protocol_type", "src_bytes", "dst_bytes",
     "flag", "land", "wrong_fragment", "urgent"
@@ -55,4 +55,4 @@ os.makedirs("models", exist_ok=True)
 joblib.dump(model, "../models/ids_model.pkl")
 joblib.dump(scaler, "../models/scaler.pkl")
 
-print("✅ 8개 feature 기반 모델 학습 및 저장 완료")
+print(" 8개 feature 기반 모델 학습 및 저장 완료")
